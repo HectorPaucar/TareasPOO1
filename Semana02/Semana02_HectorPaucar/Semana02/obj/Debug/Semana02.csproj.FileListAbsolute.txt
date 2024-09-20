@@ -1,7 +1,0 @@
-D:\programacion\Semana02\Semana02\bin\Debug\Semana02.exe.config
-D:\programacion\Semana02\Semana02\bin\Debug\Semana02.exe
-D:\programacion\Semana02\Semana02\bin\Debug\Semana02.pdb
-D:\programacion\Semana02\Semana02\obj\Debug\Semana02.csproj.AssemblyReference.cache
-D:\programacion\Semana02\Semana02\obj\Debug\Semana02.csproj.CoreCompileInputs.cache
-D:\programacion\Semana02\Semana02\obj\Debug\Semana02.exe
-D:\programacion\Semana02\Semana02\obj\Debug\Semana02.pdb
