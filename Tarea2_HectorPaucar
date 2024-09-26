@@ -1,0 +1,324 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Tarea2_Hector_PaucarUsca.Models
+{
+    public class Employees
+    {
+        public int employee_id { get; set; }
+        public string first_name { get; set; }
+        public string last_name { get; set; }
+        public string email { get; set; }
+        public int phone_number { get; set; }
+        public DateTime hire_date { get; set; }
+        public int job_id { get; set; }
+        public int salary { get; set; }
+        public int commission_pct { get; set; }
+        public int manager_id { get; set; }
+        public int department_id { get; set; }
+        
+    }
+}
+
+//Controlador//
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Web;
+using System.Web.Mvc;
+using Tarea2_Hector_PaucarUsca.Models;
+
+namespace Tarea2_Hector_PaucarUsca.Controllers
+{
+    public class EmployeesController : Controller
+    {
+
+        public static List<Employees> listaEmployees = new List<Employees>();
+        public static int cuenta = 0;
+
+        // GET: Employees
+        public ActionResult Index()
+        {
+            if (cuenta == 0)
+            {
+                listaEmployees = new List<Employees>
+                {
+                new Employees() { employee_id = 1, first_name = "Luis", last_name = "Perez", email = "correoempleado1@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 1, 15), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 2, first_name = "Marco", last_name = "Alvarado", email = "correoempleado2@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 5, 20), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 3, first_name = "Maria", last_name = "Acuña", email = "correoempleado3@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 11, 10), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 4, first_name = "Pedro", last_name = "Silva", email = "correoempleado4@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 10, 6), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 5, first_name = "Israel", last_name = "Concha", email = "correoempleado5@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 3, 25), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 6, first_name = "Manuel", last_name = "Suarez", email = "correoempleado6@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 9, 30), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 7, first_name = "Carlos", last_name = "Fernandez", email = "correoempleado7@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 8, 20), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 }
+
+                };
+                cuenta++;
+            }
+            return View(listaEmployees);
+        }
+
+        public ActionResult Create()
+        {
+            return View(new Employees());
+        }
+
+        [HttpPost]
+        public ActionResult Create(Employees obj) 
+        {
+            int cantidad = listaEmployees.Count() + 1;
+
+            Employees empleado = new Employees();
+            empleado.employee_id = cantidad;
+            empleado.first_name = obj.first_name;
+            empleado.last_name   = obj.last_name;
+            empleado.email = obj.email;
+            empleado.phone_number = obj.phone_number;
+            empleado.hire_date = obj.hire_date;
+            empleado.job_id = obj.job_id;
+            empleado.salary = obj.salary;
+            empleado.commission_pct = obj.commission_pct;
+            empleado.manager_id = obj.manager_id;
+            empleado.department_id = obj.department_id;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id) 
+        {
+            var std = listaEmployees.Where(s => s.employee_id == id).FirstOrDefault();
+            return View(std);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Employees std) 
+        {
+            var employees = listaEmployees.Where(s => s.employee_id == std.employee_id).FirstOrDefault();
+            employees.first_name = std.first_name;
+            employees.last_name = std.last_name;
+            employees.email = std.email;
+            employees.phone_number = std.phone_number;
+            employees.hire_date = std.hire_date;
+            employees.job_id = std.job_id;
+            employees.salary = std.salary;
+            employees.commission_pct = std.commission_pct;
+            employees.manager_id = std.manager_id;
+            employees.department_id = std.department_id;
+            return RedirectToAction("Index");
+        }
+    }
+}
+
+//Vistas//
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Remoting.Messaging;
+using System.Web;
+using System.Web.Mvc;
+using Tarea2_Hector_PaucarUsca.Models;
+
+namespace Tarea2_Hector_PaucarUsca.Controllers
+{
+    public class EmployeesController : Controller
+    {
+
+        public static List<Employees> listaEmployees = new List<Employees>();
+        public static int cuenta = 0;
+
+        // GET: Employees
+        public ActionResult Index()
+        {
+            if (cuenta == 0)
+            {
+                listaEmployees = new List<Employees>
+                {
+                new Employees() { employee_id = 1, first_name = "Luis", last_name = "Perez", email = "correoempleado1@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 1, 15), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 2, first_name = "Marco", last_name = "Alvarado", email = "correoempleado2@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 5, 20), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 3, first_name = "Maria", last_name = "Acuña", email = "correoempleado3@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 11, 10), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 4, first_name = "Pedro", last_name = "Silva", email = "correoempleado4@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 10, 6), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 5, first_name = "Israel", last_name = "Concha", email = "correoempleado5@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 3, 25), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 6, first_name = "Manuel", last_name = "Suarez", email = "correoempleado6@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 9, 30), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 },
+                new Employees() { employee_id = 7, first_name = "Carlos", last_name = "Fernandez", email = "correoempleado7@gmail.com", phone_number = 456987123, hire_date = new DateTime(2020, 8, 20), job_id = 2024567113, salary = 15000, commission_pct = 200, manager_id = 2019789654, department_id = 114578 }
+
+                };
+                cuenta++;
+            }
+            return View(listaEmployees);
+        }
+
+        public ActionResult Create()
+        {
+            return View(new Employees());
+        }
+
+        [HttpPost]
+        public ActionResult Create(Employees obj) 
+        {
+            int cantidad = listaEmployees.Count() + 1;
+
+            Employees empleado = new Employees();
+            empleado.employee_id = cantidad;
+            empleado.first_name = obj.first_name;
+            empleado.last_name   = obj.last_name;
+            empleado.email = obj.email;
+            empleado.phone_number = obj.phone_number;
+            empleado.hire_date = obj.hire_date;
+            empleado.job_id = obj.job_id;
+            empleado.salary = obj.salary;
+            empleado.commission_pct = obj.commission_pct;
+            empleado.manager_id = obj.manager_id;
+            empleado.department_id = obj.department_id;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int id) 
+        {
+            var std = listaEmployees.Where(s => s.employee_id == id).FirstOrDefault();
+            return View(std);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Employees std) 
+        {
+            var employees = listaEmployees.Where(s => s.employee_id == std.employee_id).FirstOrDefault();
+            employees.first_name = std.first_name;
+            employees.last_name = std.last_name;
+            employees.email = std.email;
+            employees.phone_number = std.phone_number;
+            employees.hire_date = std.hire_date;
+            employees.job_id = std.job_id;
+            employees.salary = std.salary;
+            employees.commission_pct = std.commission_pct;
+            employees.manager_id = std.manager_id;
+            employees.department_id = std.department_id;
+            return RedirectToAction("Index");
+        }
+    }
+}
+
+@model Tarea2_Hector_PaucarUsca.Models.Employees
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Employees</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.employee_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.employee_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.employee_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.first_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.last_name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.hire_date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.hire_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.hire_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.job_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.job_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.job_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.salary, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.salary, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.salary, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.commission_pct, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.commission_pct, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.commission_pct, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.manager_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.manager_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.manager_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.department_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.department_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.department_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
